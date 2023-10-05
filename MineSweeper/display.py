@@ -14,11 +14,12 @@ def header():
     ║                                                                                       █████                         ║
     ║                                                                                      ░░░░░                          ║
     ║                                                                                                                     ║
+    ║                                      Réalisé par Septsept le 12 octobre 2023.                                       ║
+    ║═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+    ║                                                                                                                     ║
+    ║                             Je pars du principe que tu connais les règles du démineur.                              ║
+    ║                                   Tu commenceras par choisir une difficulté.                                        ║
+    ║                       Ensuite, pour déminer, tu devras entrer la coordonnée de l'emplacement.                       ║
+    ║                                                                                                                     ║
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """)
-
-def rules():
-    print("Bienvenu sur le démineur réalisé par Septsept le 12 octobre 2023.")
-    print("Je pars du principe que tu connais les règles du démineur.")
-    print("Tu commenceras par choisir une taille de tableau et le nombre de bombes.")
-    print("Ensuite, pour déminer, tu devras entrer la coordonnée de l'emplacement.")
