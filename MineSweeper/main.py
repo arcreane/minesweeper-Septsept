@@ -1,12 +1,15 @@
 import display
 import StartGame
 
-# Variables de difficulté
-Width = 0
-Height = 0
-Bombs = 0
-
+# Lancement du jeu
 display.header()
 
+# Variables de difficultés
 Width, Height, Bombs = StartGame.difficulty()
+
+# Définition de la map
+Map = StartGame.set_map(Width, Height, Bombs)
+
+# Ajout du display de la map
+display.display_map(Map, Width)
 

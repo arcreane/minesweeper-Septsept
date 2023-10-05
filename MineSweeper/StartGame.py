@@ -27,7 +27,7 @@ def difficulty():
 def set_map(width, height, bombs):
     import random
 
-    map = list(width*height*"0")
+    map = list(width*height*"O")
 
     cnt = 0
     while cnt < bombs:
@@ -35,7 +35,7 @@ def set_map(width, height, bombs):
         y = random.randrange(0, height, 1)
         index = x + (y * width)
         if map[index] != "X":
-            map.insert(index, "X")
+            map[index] = "X"
             cnt += 1
 
     return map
