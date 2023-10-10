@@ -24,10 +24,10 @@ def difficulty():
             print("Relis la consigne . . . \n")
 
 
-def set_map(width, height, bombs):
+def set_mines(width, height, bombs):
     import random
 
-    map = list(width*height*"O")
+    map = list(width*height*"0")
 
     cnt = 0
     while cnt < bombs:
@@ -35,7 +35,41 @@ def set_map(width, height, bombs):
         y = random.randrange(0, height, 1)
         index = x + (y * width)
         if map[index] != "X":
+            # Placement de la bombe
             map[index] = "X"
-            cnt += 1
 
+            # Placement des chiffres au dessus et en dessous
+            if index > width and map[index - width] != "X":
+                map[index - width] = str(int(map[index - width]) + 1)
+            if index < width * height - width and map[index + width] != "X":
+                map[index + width] = str(int(map[index + width]) + 1)
+
+            # Placement des chiffres à gauche
+            if index % width != 0:
+                if map[index - 1] != "X":
+                    map[index - 1] = str(int(map[index - 1]) + 1)
+                if index > width and map[index - width - 1] != "X":
+                    map[index - width - 1] = str(int(map[index - width - 1]) + 1)
+                if index < width * height - width and map[index + width - 1] != "X":
+                    map[index + width - 1] = str(int(map[index + width - 1]) + 1)
+
+            # Placement des chiffres à droite
+            if (index + 1) % width != 0:
+                if map[index + 1] != "X":
+                    map[index + 1] = str(int(map[index + 1]) + 1)
+                if index > width and map[index - width + 1] != "X":
+                    map[index - width + 1] = str(int(map[index - width + 1]) + 1)
+                if index < width * height - width and map[index + width + 1] != "X":
+                    map[index + width + 1] = str(int(map[index + width + 1]) + 1)
+
+            cnt += 1
     return map
+
+def set_map(width, height):
+    cnt = 0
+    map = 0
+    while cnt < width * height:
+        map[cnt] = 0
+        cnt += 1;
+    return map
+

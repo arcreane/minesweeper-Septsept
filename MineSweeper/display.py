@@ -24,7 +24,7 @@ def header():
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """)
 
-def display_map(mine_map, width):
+def display_map(map, width):
     cnt = 1
     output = """      """
     while cnt < width + 1:
@@ -38,11 +38,20 @@ def display_map(mine_map, width):
     cnt = 0
     char = 0
 
-    while cnt < len(mine_map):
+    while cnt < len(map):
         if cnt % width == 0:
-            output += f"""\n  {chr(char + 65)}   """
+            separator = 0
+            output += """     """
+            while separator < width:
+                output += """═"""
+                separator += 1
+            output += f"""\n  {chr(char + 65)}  ║"""
             char += 1
-        output += f""" {mine_map[cnt]} """
+        if map[cnt] == 0:
+            output += f"""║█║"""
+        else:
+            output += f"""║ ║"""
+
         cnt += 1
 
     print(output)
