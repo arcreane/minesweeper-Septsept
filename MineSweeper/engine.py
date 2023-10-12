@@ -77,4 +77,3 @@ def play(width, height, bombs, displayed_map, mine_map):
             print(f"Bombes restantes : {bombs - displayed_map.count('⚑')}")
             print(f"Temps : {(time.time() - start_time):.2f} secondes")
             displayed_map = selection(width, height, displayed_map, mine_map)
-
