@@ -1,4 +1,5 @@
 import display
+import time
 
 
 def undercover(flag, x, y, width, height, displayed_map, mine_map):
@@ -61,15 +62,19 @@ def selection(width, height, displayed_map, mine_map):
 
 
 def play(width, height, bombs, displayed_map, mine_map):
+    start_time = time.time()
     win = False
     lose = False
     while not win and not lose:
         if displayed_map.count("█") == bombs:
-            display.win()
+            display.win(time.time() - start_time)
             win = True
         elif len(displayed_map) == 1:
             display.lose()
             lose = True
         else:
             display.display_map(displayed_map, width)
+            print(f"Bombes restantes : {bombs - displayed_map.count('⚑')}")
+            print(f"Temps : {(time.time() - start_time):.2f} secondes")
             displayed_map = selection(width, height, displayed_map, mine_map)
+
