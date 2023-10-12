@@ -3,6 +3,7 @@ import time
 from playsound import playsound
 
 
+# Fonction pour afficher les cases
 def undercover(flag, x, y, width, height, displayed_map, mine_map):
     if x < 0 or x >= height or y < 0 or y >= width:
         return displayed_map
@@ -31,6 +32,7 @@ def undercover(flag, x, y, width, height, displayed_map, mine_map):
     return displayed_map
 
 
+# Fonction pour selectionner une case
 def selection(width, height, displayed_map, mine_map):
     x_selection = False
     print("\nVeuiller entrer la colonne (⮟) :")
@@ -62,6 +64,7 @@ def selection(width, height, displayed_map, mine_map):
     return undercover(flag, x, y, width, height, displayed_map, mine_map)
 
 
+# Fonction principale qui permet de jouer (la seule qu'on doit appeler de l'extérieur)
 def play(width, height, bombs, displayed_map, mine_map):
     start_time = time.time()
     win = False
