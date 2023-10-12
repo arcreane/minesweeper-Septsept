@@ -36,11 +36,11 @@ def display_map(map_mine, width):
 
     output += "\n"
     cnt = 0
-    char = 0
+    char = 1
 
     while cnt < len(map_mine):
         if cnt % width == 0:
-            output += f"""\n  {chr(char + 65)}   """
+            output += f"""\n  {char}   """
             char += 1
         output += f""" {map_mine[cnt]} """
 

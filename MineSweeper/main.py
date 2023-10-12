@@ -15,4 +15,4 @@ Mines = StartGame.set_mines(Width, Height, Bombs)
 Map = list(Width*Height*"█")
 
 # Ajout du display de la map
-display.display_map(Map, Width)
+engine.play(Width, Height, Bombs, Map, Mines)
