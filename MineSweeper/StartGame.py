@@ -1,7 +1,6 @@
 import display
 import random
 
-
 # Fonction pour choisir sa difficulté
 def difficulty():
     is_chosing = True

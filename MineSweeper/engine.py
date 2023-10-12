@@ -1,5 +1,6 @@
 import display
 import time
+from playsound import playsound
 
 
 def undercover(flag, x, y, width, height, displayed_map, mine_map):
@@ -69,9 +70,13 @@ def play(width, height, bombs, displayed_map, mine_map):
         if displayed_map.count("█") == bombs:
             display.win(time.time() - start_time)
             win = True
+            playsound("minesweeper-Septsept/MineSweeper/win.mp3")
+            time.sleep(5)
         elif len(displayed_map) == 1:
             display.lose()
             lose = True
+            playsound("minesweeper-Septsept/MineSweeper/sound.mp3")
+            time.sleep(5)
         else:
             display.display_map(displayed_map, width)
             print(f"Bombes restantes : {bombs - displayed_map.count('⚑')}")
