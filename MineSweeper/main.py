@@ -6,17 +6,16 @@ import engine
 display.header()
 
 # Variables de difficultés
-Width, Height, Bombs = StartGame.difficulty()
+width, height, bombs = StartGame.difficulty()
 
 # Placement des mines
-Mines = StartGame.set_mines(Width, Height, Bombs)
+mines_map = StartGame.set_mines(width, height, bombs)
 
 # Création de la map
-Map = list(Width * Height * "█")
+displayed_map = list(width * height * "█")
 
 # Affichage de la map de mine
-display.display_map(Mines, Width)
-print("\n")
+display.display_map(mines_map, width)
 
 # Ajout du display de la map
-engine.play(Width, Height, Bombs, Map, Mines)
+engine.play(width, height, bombs, displayed_map, mines_map)

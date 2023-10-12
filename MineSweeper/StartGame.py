@@ -75,11 +75,16 @@ def set_mines(width, height, bombs):
             if grid[index] == -1:
                 continue
 
-            for i in range(-1, 2):
-                for j in range(-1, 2):
-                    if 0 <= x + i < height and 0 <= y + j < width:
-                        if grid[(x + i) * width + (y + j)] == -1:
-                            grid[index] += 1
+            distribute(grid, height, index, width, x, y)
 
     # Convertit la grille en une liste de chaînes de caractères
     return [str(cell) if cell >= 0 else "X" for cell in grid]
+
+
+# Placer les chiffres autour de la bombe
+def distribute(grid, height, index, width, x, y):
+    for i in range(-1, 2):
+        for j in range(-1, 2):
+            if 0 <= x + i < height and 0 <= y + j < width:
+                if grid[(x + i) * width + (y + j)] == -1:
+                    grid[index] += 1

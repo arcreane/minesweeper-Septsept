@@ -9,10 +9,12 @@ def undercover(flag, x, y, width, height, displayed_map, mine_map):
         return displayed_map
     index = x * width + y
 
+    # Si le joueur veut poser un flag
     if flag == 2:
         displayed_map[index] = "⚑"
         return displayed_map
 
+    # Si le joueur choisit une case flagué
     if displayed_map[index] == "⚑":
         return displayed_map
 
@@ -53,7 +55,7 @@ def selection(width, height, displayed_map, mine_map):
             print("Erreur, veuillez réessayer.")
 
     flag_or_not = False
-    print("""Quelle action souhaitez vous réaliser ?
+    print("""\nQuelle action souhaitez vous réaliser ?
     ---> Tape 1 pour déminer
     ---> Tape 2 pour poser un drapeau""")
     while not flag_or_not:
@@ -82,6 +84,6 @@ def play(width, height, bombs, displayed_map, mine_map):
             time.sleep(5)
         else:
             display.display_map(displayed_map, width)
-            print(f"Bombes restantes : {bombs - displayed_map.count('⚑')}")
+            print(f"\nBombes restantes : {bombs - displayed_map.count('⚑')}")
             print(f"Temps : {(time.time() - start_time):.2f} secondes")
             displayed_map = selection(width, height, displayed_map, mine_map)

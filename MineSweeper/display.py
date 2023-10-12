@@ -35,7 +35,7 @@ def difficulty():
 
 def display_map(map_mine, width):
     cnt = 1
-    output = """      """
+    output = """\n      """
     while cnt < width + 1:
         if cnt >= 10:
             output += f"""{cnt} """
