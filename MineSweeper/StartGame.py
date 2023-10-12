@@ -1,67 +1,86 @@
+import display
+import random
+
+
+# Fonction pour choisir sa difficulté
 def difficulty():
     is_chosing = True
-    print("""Choisissez une difficulté :
-    ---> Tape 1 pour le mode Facile
-    ---> Tape 2 pour le mode Moyen
-    ---> Tape 3 pour le mode Difficile
-    ---> Tape 4 pour le mode Facile
-    """)
+    display.difficulty()
     while is_chosing:
         scan = input(">>> ")
-        if scan == "1":
+        if scan == "1":  # Facile
             is_chosing = False
             return 9, 9, 10
-        elif scan == "2":
+        elif scan == "2":  # Moyen
             is_chosing = False
             return 16, 16, 40
-        elif scan == "3":
+        elif scan == "3":  # Difficile
             is_chosing = False
             return 30, 16, 99
-        elif scan == "4":
+        elif scan == "4":  # Personnalisé
             is_chosing = False
-            return 9, 9, 10
+            return custom()
         else:
             print("Relis la consigne . . . \n")
 
 
+# Fonction pour le choix personalisé
+def custom():
+    # Choix du nombre de colonne
+    is_chosing = True
+    print("Entrez le nombre de colonne (max : 50) : ")
+    while is_chosing:
+        width = int(input(">>> "))
+        if 0 < width <= 50:
+            is_chosing = False
+
+    # Choix du nombre de ligne
+    is_chosing = True
+    print("Entrez le nombre de ligne (max : 25) : ")
+    while is_chosing:
+        height = int(input(">>> "))
+        if 0 < height <= 25:
+            is_chosing = False
+
+    # Choix du nombre de bombes
+    is_chosing = True
+    print(f"Entrez le nombre de bombes (max : {int(width * height / 5)}) : ")
+    while is_chosing:
+        bombs = int(input(">>> "))
+        if 0 < bombs <= width * height / 5:
+            is_chosing = False
+
+    return width, height, bombs
+
+
+# Fonction pour placer mes mines et mes chiffres
 def set_mines(width, height, bombs):
-    import random
+    # Crée une grille vide remplie de zéros
+    grid = [0] * (width * height)
 
-    res = list(width*height*"0")
+    # Place les bombes aléatoirement
+    for _ in range(bombs):
+        while True:
+            x, y = random.randrange(0, width), random.randrange(0, height)
+            index = x + y * width
 
-    cnt = 0
-    while cnt < bombs:
-        x = random.randrange(0, width, 1)
-        y = random.randrange(0, height, 1)
-        index = x + (y * width)
-        if res[index] != "X":
-            # Placement de la bombe
-            res[index] = "X"
+            if grid[index] == 0:
+                grid[index] = -1  # Utilise -1 pour représenter les bombes
+                break
 
-            # Placement des chiffres au dessus et en dessous
-            if index > width and res[index - width] != "X":
-                res[index - width] = str(int(res[index - width]) + 1)
-            if index < width * height - width and res[index + width] != "X":
-                res[index + width] = str(int(res[index + width]) + 1)
+    # Définit les chiffres en comptant les bombes adjacentes
+    for x in range(height):
+        for y in range(width):
+            index = x * width + y
 
-            # Placement des chiffres à gauche
-            if index % width != 0:
-                if res[index - 1] != "X":
-                    res[index - 1] = str(int(res[index - 1]) + 1)
-                if index > width and res[index - width - 1] != "X":
-                    res[index - width - 1] = str(int(res[index - width - 1]) + 1)
-                if index < width * height - width and res[index + width - 1] != "X":
-                    res[index + width - 1] = str(int(res[index + width - 1]) + 1)
+            if grid[index] == -1:
+                continue
 
-            # Placement des chiffres à droite
-            if (index + 1) % width != 0:
-                if res[index + 1] != "X":
-                    res[index + 1] = str(int(res[index + 1]) + 1)
-                if index > width and res[index - width + 1] != "X":
-                    res[index - width + 1] = str(int(res[index - width + 1]) + 1)
-                if index < width * height - width and res[index + width + 1] != "X":
-                    res[index + width + 1] = str(int(res[index + width + 1]) + 1)
+            for i in range(-1, 2):
+                for j in range(-1, 2):
+                    if 0 <= x + i < height and 0 <= y + j < width:
+                        if grid[(x + i) * width + (y + j)] == -1:
+                            grid[index] += 1
 
-            cnt += 1
-    return res
-
+    # Convertit la grille en une liste de chaînes de caractères
+    return [str(cell) if cell >= 0 else "X" for cell in grid]

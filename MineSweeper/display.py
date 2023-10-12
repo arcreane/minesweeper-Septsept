@@ -25,6 +25,14 @@ def header():
     """)
 
 
+def difficulty():
+    print("""Choisissez une difficulté :
+        ---> Tape 1 pour le mode facile
+        ---> Tape 2 pour le mode moyen
+        ---> Tape 3 pour le mode difficile
+        ---> Tape 4 pour le mode personnalisé
+        """)
+
 def display_map(map_mine, width):
     cnt = 1
     output = """      """
@@ -41,7 +49,10 @@ def display_map(map_mine, width):
 
     while cnt < len(map_mine):
         if cnt % width == 0:
-            output += f"""\n  {char}   """
+            if char > 9:
+                output += f"""\n  {char}  """
+            else:
+                output += f"""\n  {char}   """
             char += 1
         output += f""" {map_mine[cnt]} """
 

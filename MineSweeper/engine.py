@@ -1,10 +1,17 @@
 import display
 
 
-def undercover(x, y, width, height, displayed_map, mine_map):
+def undercover(flag, x, y, width, height, displayed_map, mine_map):
     if x < 0 or x >= height or y < 0 or y >= width:
         return displayed_map
     index = x * width + y
+
+    if flag == 2:
+        displayed_map[index] = "⚑"
+        return displayed_map
+
+    if displayed_map[index] == "⚑":
+        return displayed_map
 
     if mine_map[index] == "X":
         lose = list('0')
@@ -17,14 +24,14 @@ def undercover(x, y, width, height, displayed_map, mine_map):
         for i in range(-1, 2):
             for j in range(-1, 2):
                 if 0 <= x + i < height and 0 <= y + j < width:
-                    undercover(x + i, y + j, width, height, displayed_map, mine_map)
+                    undercover(flag, x + i, y + j, width, height, displayed_map, mine_map)
 
     return displayed_map
 
 
 def selection(width, height, displayed_map, mine_map):
     x_selection = False
-    print("\nVeuiller entrer la position de x (⮟) :")
+    print("\nVeuiller entrer la colonne (⮟) :")
     while not x_selection:
         x = int(input(">>> ")) - 1
         if -1 < x < width and x != '':
@@ -33,7 +40,7 @@ def selection(width, height, displayed_map, mine_map):
             print("Erreur, veuillez réessayer.")
 
     y_selection = False
-    print("\nVeuiller entrer la position de y (⮞) :")
+    print("\nVeuiller entrer la ligne (⮞) :")
     while not y_selection:
         y = int(input(">>> ")) - 1
         if -1 < y < height and y != '':
@@ -41,7 +48,16 @@ def selection(width, height, displayed_map, mine_map):
         else:
             print("Erreur, veuillez réessayer.")
 
-    return undercover(x, y, width, height, displayed_map, mine_map)
+    flag_or_not = False
+    print("""Quelle action souhaitez vous réaliser ?
+    ---> Tape 1 pour déminer
+    ---> Tape 2 pour poser un drapeau""")
+    while not flag_or_not:
+        flag = int(input(">>> "))
+        if 0 < flag < 3:
+            flag_or_not = True
+
+    return undercover(flag, x, y, width, height, displayed_map, mine_map)
 
 
 def play(width, height, bombs, displayed_map, mine_map):

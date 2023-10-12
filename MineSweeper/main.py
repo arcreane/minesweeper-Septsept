@@ -12,7 +12,7 @@ Width, Height, Bombs = StartGame.difficulty()
 Mines = StartGame.set_mines(Width, Height, Bombs)
 
 # Création de la map
-Map = list(Width*Height*"█")
+Map = list(Width * Height * "█")
 
 # Affichage de la map de mine
 display.display_map(Mines, Width)
